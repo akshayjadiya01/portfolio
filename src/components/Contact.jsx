@@ -1,9 +1,34 @@
+import { useRef } from "react";
+import emailjs from "@emailjs/browser";
+
 export default function Contact() {
+  const formRef = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_nxrcr6x",
+        "template_4mm1q9i",
+        formRef.current,
+        "gNuYz715p6Biz2Qer"
+      )
+      .then(
+        () => {
+          alert("Message sent successfully!");
+          formRef.current.reset();
+        },
+        () => {
+          alert("Failed to send message. Please try again.");
+        }
+      );
+  };
+
   return (
     <section id="contact" className="py-24 px-6 bg-black/30">
       <div className="max-w-5xl mx-auto">
 
-        {/* Section Heading */}
         <h2 className="text-4xl font-bold text-center mb-6 gradient-text">
           Contact
         </h2>
@@ -14,48 +39,48 @@ export default function Contact() {
           internships, and data-driven collaborations.
         </p>
 
-        {/* Contact Card */}
         <div className="glass rounded-2xl p-8 max-w-3xl mx-auto glow">
+          <form ref={formRef} onSubmit={sendEmail} className="space-y-6">
 
-          <form className="space-y-6">
-
-            {/* Name */}
             <div>
               <label className="block text-sm mb-2 text-gray-300">
                 Your Name
               </label>
               <input
                 type="text"
+                name="from_name"
+                required
                 placeholder="Enter your name"
                 className="w-full px-4 py-3 rounded-lg bg-black/40 border border-white/10 text-gray-200 focus:outline-none focus:border-cyan-400 transition"
               />
             </div>
 
-            {/* Email */}
             <div>
               <label className="block text-sm mb-2 text-gray-300">
                 Email Address
               </label>
               <input
                 type="email"
+                name="from_email"
+                required
                 placeholder="Enter your email"
                 className="w-full px-4 py-3 rounded-lg bg-black/40 border border-white/10 text-gray-200 focus:outline-none focus:border-cyan-400 transition"
               />
             </div>
 
-            {/* Message */}
             <div>
               <label className="block text-sm mb-2 text-gray-300">
                 Message
               </label>
               <textarea
                 rows="5"
+                name="message"
+                required
                 placeholder="Tell me about the opportunity or project"
                 className="w-full px-4 py-3 rounded-lg bg-black/40 border border-white/10 text-gray-200 focus:outline-none focus:border-cyan-400 transition resize-none"
               ></textarea>
             </div>
 
-            {/* Button */}
             <button
               type="submit"
               className="
@@ -69,7 +94,6 @@ export default function Contact() {
             </button>
 
           </form>
-
         </div>
 
       </div>

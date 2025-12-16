@@ -15,7 +15,6 @@ const projects = [
     code: "https://github.com/akshayjadiya01/fraud-detection-dashboard",
     demo: "#",
   },
-
   {
     title: "Customer Segmentation Application",
     description:
@@ -43,6 +42,10 @@ const projects = [
 ];
 
 export default function Projects() {
+  const handleProjectClick = (url) => {
+    window.open(url, "_blank");
+  };
+
   return (
     <section id="projects" className="py-24 px-6">
       <div className="max-w-7xl mx-auto">
@@ -63,10 +66,13 @@ export default function Projects() {
           {projects.map((project, index) => (
             <div
               key={index}
+              onClick={() => handleProjectClick(project.code)}
               className="
                 glass rounded-2xl overflow-hidden
                 transition-all duration-300
                 hover:-translate-y-2 hover:shadow-xl
+                hover:shadow-cyan-500/20
+                cursor-pointer
               "
             >
               {/* Image */}
@@ -111,6 +117,7 @@ export default function Projects() {
                 {/* Actions */}
                 <div className="mt-auto flex gap-4">
                   <a
+                    onClick={(e) => e.stopPropagation()}
                     href={project.code}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -123,6 +130,7 @@ export default function Projects() {
                     View Code
                   </a>
                   <a
+                    onClick={(e) => e.stopPropagation()}
                     href={project.demo}
                     target="_blank"
                     rel="noopener noreferrer"
